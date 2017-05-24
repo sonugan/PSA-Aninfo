@@ -1,0 +1,4 @@
+script: "mvn test"
+language: java
+jdk:
+  - oraclejdk8
