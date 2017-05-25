@@ -21,6 +21,7 @@ public class DebitoSteps {
     public void que_mi_caja_de_ahorro_tiene_un_saldo_de_pesos(int saldoInicial) throws Throwable {
         fachadaBanco = new FachadaBanco();
         fachadaBanco.crearCuenta(CBU, saldoInicial);
+        
     }
 
     @Cuando("^cuando debito \"(.*?)\" pesos$")
