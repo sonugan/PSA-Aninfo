@@ -1,10 +1,8 @@
-# Proyecto base
+# Psa Aninfo
 
-[![Build Status](https://travis-ci.org/nicopaez/proyecto-base-memo1.svg?branch=master)](https://travis-ci.org/nicopaez/proyecto-base-memo1)
+[![Build Status](https://travis-ci.org/sonugan/PSA-Aninfo.svg?branch=master)](https://travis-ci.org/sonugan/PSA-Aninfo)
 
-Este proyecto es un ejemplo del uso de la herramienta Cucumber como medio de implementacion de la técnica BDD
-
-Para correr este ejemplo ejecutar:
+Este proyecto es parte del trabajo práctico de la materia Análisis de la Información de la Facultad de Ingeniería
 
 ```
 mvn test
