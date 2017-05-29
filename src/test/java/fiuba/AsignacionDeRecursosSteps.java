@@ -9,23 +9,26 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
 public class AsignacionDeRecursosSteps  {
+	
+	//private Proyecto proyecto;
+	private RecursoHumano recurso;
+	
 
     @Dado("^un recurso$")
     public void un_recurso() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        //throw new PendingException();
+    	recurso = new RecursoHumano(); 
     }
 
     @Cuando("^lo inspecciono$")
     public void lo_inspecciono() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        //throw new PendingException();
+    	if (! recurso.estaDisponible()){
+    		throw new Exception();
+    	}
     }
 
     @Entonces("^se me informa si esta disponible$")
     public void se_me_informa_si_esta_disponible() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        //throw new PendingException();
+    	System.out.println("Recurso disponible");
     }
 
     @Cuando("^lo asigno a un proyecto$")
