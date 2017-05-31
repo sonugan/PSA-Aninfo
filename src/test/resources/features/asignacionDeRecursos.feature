@@ -20,3 +20,6 @@ Característica: Asignacion de un recurso a un proyecto
 		Dado el recurso "Gaston" que esta de licencia
 		Cuando lo asigno al proyecto
 		Entonces el recurso no queda ligado al proyecto
+
+
+
