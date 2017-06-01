@@ -1,7 +1,7 @@
 # language: es
 Característica: Asignacion de una tarea a un proyecto
 
-#	Estados: No iniciado, En progreso, suspendido, finalizado.
+#	EstadosDeProyeto: No iniciado, En progreso, suspendido, finalizado.
 
 	Escenario: Crear una tarea y asignarla a un proyecto con estado EnProgreso
 		Dado una tarea y un proyecto
