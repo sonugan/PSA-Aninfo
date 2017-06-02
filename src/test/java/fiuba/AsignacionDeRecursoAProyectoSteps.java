@@ -8,35 +8,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
-public class AsignacionDeRecursosSteps  {
+public class AsignacionDeRecursoAProyectoSteps {
 	
 	private Proyecto proyecto;
 	private Proyecto proyecto2;
 	private RecursoHumano recurso;
-	
 
-	@Dado("^el recurso \"(.*?)\"$")
-	public void un_recurso(String nombre) throws Throwable {
-    	recurso = new RecursoHumano(nombre); 
-    }
-
-    @Cuando("^lo inspecciono$")
-    public void lo_inspecciono() throws Throwable {
-    	if (! recurso.estaDisponible()){
-    		throw new Exception();
-    	}
-    }
-
-    @Entonces("^se me informa si esta disponible$")
-    public void se_me_informa_si_esta_disponible() throws Throwable {
-    	System.out.println("Recurso disponible"); // ver como informar el estado del recurso
-    	
-    }
-    
-    @Dado("^el recurso \"(.*?)\" y un proyecto$")
-    public void el_recurso_y_un_proyecto(String nombre) throws Throwable {
-    	recurso = new RecursoHumano(nombre);
-    	proyecto = new Proyecto();
+    @Dado("^el recurso \"(.*?)\" disponible y un proyecto en progreso$")
+    public void el_recurso_disponible_y_un_proyecto_en_progreso(String nombre) throws Throwable {
+        recurso = new RecursoHumano(nombre);
+        proyecto = new Proyecto();
+        proyecto.cambiarEstado(new EnProgreso());
+        proyecto.asignar(recurso);
     }
 
     @Cuando("^lo asigno al proyecto$")
@@ -44,22 +27,25 @@ public class AsignacionDeRecursosSteps  {
     	proyecto.asignar(recurso);
     }
 
+
     @Entonces("^el recurso queda ligado al proyecto$")
     public void el_recurso_queda_ligado_al_proyecto() throws Throwable {
     	assert(proyecto.validarAsignacion(recurso));
     }
 
-    @Dado("^el recurso \"(.*?)\" ligado a un proyecto$")
-    public void el_recurso_ligado_a_un_proyecto(String nombre) throws Throwable {
+    @Dado("^el recurso \"(.*?)\" disponible y ligado a un proyecto en progreso$")
+    public void el_recurso_disponible_y_ligado_a_un_proyecto_en_progreso(String nombre) throws Throwable {
         recurso = new RecursoHumano(nombre);
         proyecto = new Proyecto();
+        proyecto.cambiarEstado(new EnProgreso());
         proyecto.asignar(recurso);
-        proyecto2 = new Proyecto();
-    }
+	}
 
-    @Cuando("^lo asigno a un nuevo proyecto$")
-    public void lo_asigno_a_un_nuevo_proyecto() throws Throwable {
-    	proyecto2.asignar(recurso);
+    @Cuando("^lo asigno a un nuevo proyecto en progreso$")
+    public void lo_asigno_a_un_nuevo_proyecto_en_progreso() throws Throwable {
+        proyecto2 = new Proyecto();
+        proyecto2.cambiarEstado(new EnProgreso());
+        proyecto2.asignar(recurso);
     }
 
     @Entonces("^el recurso queda ligado tambien al nuevo proyecto$")
@@ -71,12 +57,20 @@ public class AsignacionDeRecursosSteps  {
     public void el_recurso_que_esta_de_licencia(String nombre) throws Throwable {
        recurso = new RecursoHumano(nombre);
        recurso.tomaLicencia();
+       assert(!recurso.estaDisponible());
        proyecto = new Proyecto();
+       proyecto.cambiarEstado(new EnProgreso());
+    }
+
+    @Dado("^el recurso \"(.*?)\" disponible y un proyecto no iniciado$")
+    public void el_recurso_disponible_y_un_proyecto_no_iniciado(String nombre) throws Throwable {
+        recurso = new RecursoHumano(nombre);
+        // el estado de un proyecto nuevo es "NoIniciado" por defecto.
+        proyecto = new Proyecto();
     }
 
     @Entonces("^el recurso no queda ligado al proyecto$")
     public void el_recurso_no_queda_ligado_al_proyecto() throws Throwable {
-    	assert(! proyecto.validarAsignacion(recurso));
+        assert (!proyecto.validarAsignacion(recurso));
     }
-
 }

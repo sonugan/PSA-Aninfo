@@ -66,6 +66,6 @@ public class AsignacionDeTareaAProyectoSteps {
 
     @Entonces("^la tarea no queda ligada al proyecto Finalizado$")
     public void la_tarea_no_queda_ligada_al_proyecto_Finalizado() throws Throwable {
-        assert !this.proyecto.tieneEstaTarea(this.tarea);
+        assert (!this.proyecto.tieneEstaTarea(this.tarea));
     }
 }

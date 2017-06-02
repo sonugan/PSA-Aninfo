@@ -7,22 +7,47 @@ import cucumber.api.java.es.Entonces;
 /**
  * Created by nicolas on 01/06/17.
  */
-public class AsignacionDeRecursoATarea {
-    @Dado("^(\\d+) y (\\d+)$")
-    public void y(int arg1, int arg2) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-//        throw new PendingException();
+public class AsignacionDeRecursoATareaSteps {
+
+    private Proyecto proyecto;
+    private RecursoHumano recurso;
+    private Tarea tarea;
+
+    @Dado("^el recurso \"(.*?)\" disponible y una tarea \"(.*?)\" ambos asignados a un proyecto en progreso$")
+    public void el_recurso_disponible_y_una_tarea_ambos_asignados_a_un_proyecto_en_progreso(String nombreRecurso, String nombreTarea) throws Throwable {
+        this.proyecto = new Proyecto();
+        this.proyecto.cambiarEstado(new EnProgreso());
+        this.tarea = new Tarea(nombreTarea);
+        assert this.proyecto.asignar(this.tarea);
+        this.recurso = new RecursoHumano(nombreRecurso);
+        this.proyecto.asignar(this.recurso);
     }
 
-    @Cuando("^los sumo$")
-    public void los_sumo() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        //      throw new PendingException();
+    @Cuando("^le asigno el recurso a la tarea$")
+    public void le_asigno_el_recurso_a_la_tarea() throws Throwable {
+        this.proyecto.asignarEsteRecursoAEstaTarea(this.recurso, this.tarea);
     }
 
-    @Entonces("^el resultado es (\\d+)$")
-    public void el_resultado_es(int arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        //    throw new PendingException();
+    @Entonces("^el recurso efectivamente queda asignado a la tarea$")
+    public void el_recurso_efectivamente_queda_asignado_a_la_tarea() throws Throwable {
+        assert this.recurso.tieneEstaTarea(this.tarea);
     }
+
+    @Dado("^el recurso \"(.*?)\" de licencia y una tarea \"(.*?)\" ambos asignados a un proyecto en progreso$")
+    public void el_recurso_de_licencia_y_una_tarea_ambos_asignados_a_un_proyecto_en_progreso(String nombreRecurso, String nombreTarea) throws Throwable {
+        this.proyecto = new Proyecto();
+        this.proyecto.cambiarEstado(new EnProgreso());
+        this.tarea = new Tarea(nombreTarea);
+        this.proyecto.asignar(this.tarea);
+        this.recurso = new RecursoHumano(nombreRecurso);
+        this.recurso.tomaLicencia();
+        // este asignar debe fallar.
+        this.proyecto.asignar(this.recurso);
+    }
+
+    @Entonces("^la asignacion no se efectua$")
+    public void la_asignacion_no_se_efectua() throws Throwable {
+        assert !this.recurso.tieneEstaTarea(this.tarea);
+    }
+
 }
