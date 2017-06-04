@@ -4,9 +4,6 @@ import cucumber.api.java.es.Cuando;
 import cucumber.api.java.es.Dado;
 import cucumber.api.java.es.Entonces;
 
-/**
- * Created by nicolas on 01/06/17.
- */
 public class AsignacionDeRecursoATareaSteps {
 
     private Proyecto proyecto;
@@ -42,6 +39,19 @@ public class AsignacionDeRecursoATareaSteps {
         this.recurso = new RecursoHumano(nombreRecurso);
         this.recurso.tomaLicencia();
         // este asignar debe fallar.
+        this.proyecto.asignar(this.recurso);
+    }
+
+    @Dado("^el recurso \"(.*?)\" disponible y asignado a la tarea \"(.*?)\", el recurso \"(.*?)\" disponible todos asignados a un proyecto$")
+    public void el_recurso_disponible_y_asignado_a_la_tarea_el_recurso_disponible_todos_asignados_a_un_proyecto(String nombreRecursoUno, String nombreTarea, String nombreRecursoDos) throws Throwable {
+        this.proyecto = new Proyecto();
+        this.proyecto.cambiarEstado(new EnProgreso());
+        this.tarea = new Tarea(nombreTarea);
+        this.proyecto.asignar(this.tarea);
+        RecursoHumano recursoHumano = new RecursoHumano(nombreRecursoUno);
+        this.proyecto.asignar(recursoHumano);
+        this.proyecto.asignarEsteRecursoAEstaTarea(recursoHumano, this.tarea);
+        this.recurso = new RecursoHumano(nombreRecursoDos);
         this.proyecto.asignar(this.recurso);
     }
 

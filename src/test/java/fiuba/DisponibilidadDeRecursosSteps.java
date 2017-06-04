@@ -1,13 +1,9 @@
 package fiuba;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.es.Cuando;
 import cucumber.api.java.es.Dado;
 import cucumber.api.java.es.Entonces;
 
-/**
- * Created by nicolas on 01/06/17.
- */
 public class DisponibilidadDeRecursosSteps {
 
     private RecursoHumano recurso;
@@ -19,10 +15,6 @@ public class DisponibilidadDeRecursosSteps {
 
     @Cuando("^lo inspecciono$")
     public void lo_inspecciono() throws Throwable {
-        // no va nada aca
-        //if (! recurso.estaDisponible()){
-        //    throw new Exception();
-        //}
     }
 
     @Entonces("^se me informa que esta disponible$")

@@ -22,6 +22,7 @@ public class AsignacionDeRecursoAProyectoSteps {
         proyecto.asignar(recurso);
     }
 
+
     @Cuando("^lo asigno al proyecto$")
     public void lo_asigno_al_proyecto() throws Throwable {
     	proyecto.asignar(recurso);
